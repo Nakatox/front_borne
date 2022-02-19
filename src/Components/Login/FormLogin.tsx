@@ -32,8 +32,6 @@ const FormLogin = () => {
                 draggable: true,
                 progress: undefined,
             });
-            console.log(infosUser.roleId);
-            
             
             switch (infosUser.roleId) {
                 case 1:
