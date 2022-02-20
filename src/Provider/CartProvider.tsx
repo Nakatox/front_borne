@@ -7,10 +7,17 @@ export const CartContext = createContext()
 
 const CartProvider = (props: any): JSX.Element => {
 
-    const [cart, setCart] = useState([])
+    const defaultCart = {
+        products: [],
+        totPrice: 0
+    }
+
+    const [cart, setCart] = useState(defaultCart)
 
     return (
-        <div>CartProvider</div>
+        <CartContext.Provider value={{cart, setCart}}>
+            {props.children}
+        </CartContext.Provider>
     )
 }
 

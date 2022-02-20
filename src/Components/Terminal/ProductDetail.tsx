@@ -6,14 +6,22 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { GetIngredients } from '../../Services/IngredientAPI'
 import Popup from 'reactjs-popup'
+import { useContext } from 'react'
+import { CartContext } from '../../Provider/CartProvider'
 
-const ProductDetail = (props: any): JSX.Element => {
+const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredient>, priceTemp: number, alreadyExist: Boolean, index:number}): JSX.Element => {
 
-    const product: Product = props.product
+    const product = props.product
+    const ingredientTemp = props.ingredientTemp
+    const priceTemp = props.priceTemp
+    const alreadyExist = props.alreadyExist
+    const index = props.index
 
-    let [ingredients, setIngredients] = useState([])
+    let {cart, setCart} = useContext(CartContext)
+
+    let [ingredients, setIngredients] = useState(ingredientTemp)
     const [allIngredients, setAllIngredients] = useState([])
-    let [price, setPrice] = useState(product.price)
+    let [price, setPrice] = useState(priceTemp === 0 ? product.price: priceTemp)
 
     const insertIngredient = (): void => {
         if (ingredients.length === 0) {
@@ -54,6 +62,17 @@ const ProductDetail = (props: any): JSX.Element => {
     }
 
     const addToCart = () => {
+        if (alreadyExist) {            
+            setCart({
+                products : [...cart.products.filter((data: any, i: number) => i !== index), [product, ingredients, price]],
+                totPrice : (cart.totPrice - product.price) + price
+            })
+        } else {
+            setCart({
+                products: [...cart.products, [product, ingredients, price]], 
+                totPrice: cart.totPrice + price
+            })
+        }
     }
 
     useEffect(() => {
@@ -93,7 +112,7 @@ const ProductDetail = (props: any): JSX.Element => {
             </div>
             <div style= {{display:"flex", alignItems:"center"}}>
                 <p>Price: {price} $</p>
-                <ButtonAddCart>Add to cart</ButtonAddCart>
+                <ButtonAddCart onClick={addToCart}>Add to cart</ButtonAddCart>
             </div>
         </ProductContainer>
     )

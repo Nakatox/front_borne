@@ -4,19 +4,24 @@ import styled from 'styled-components'
 import Popup from 'reactjs-popup'
 import ProductDetail from './ProductDetail'
 import 'reactjs-popup/dist/index.css';
+import { Ingredient } from '../../Interface/Ingredient'
 
 
 const ProductComponent = (props: any): JSX.Element => {
     const product: Product = props.product
-
+    const alreadyExist: Boolean = props.alreadyExist
+    const ingredients: Array<Ingredient> = (typeof props.ingredients === 'undefined') ? [] : props.ingredients
+    const totPrice: number = (typeof props.totPrice !== 'undefined') ? props.totPrice : product.price
+    const index: number = (typeof props.index !== 'undefined') ? props.index : undefined
+    
     return (
         <ProductContainer>
             <p>{product.name}</p>
-            <p>{product.price} $</p>
-            <StyledPopup trigger={<ButtonAdd>Add to cart</ButtonAdd>} position="right center" modal nested>
+            <p>{totPrice} $</p>
+            <StyledPopup trigger={alreadyExist ? <ButtonAddCart>Modify</ButtonAddCart> : <ButtonAddCart >Add to cart</ButtonAddCart>} position="right center" modal nested>
             {(close:any) => (     
                 <div>      
-                    <ProductDetail key={product.id} product= {product}></ProductDetail>
+                    <ProductDetail key={product.id} index={index} product= {product} ingredientTemp={ingredients} priceTemp= {totPrice} alreadyExist= {alreadyExist} ></ProductDetail>
                     <img src="/assets/icons/close.svg" alt="" onClick={close} style={{cursor:"pointer", width:"30px", position:"absolute", right:"10px", top:"10px"}}/>      
                 </div>    
             )}
@@ -70,5 +75,19 @@ const ButtonAdd = styled.button`
         border-color: #E6E6E6;
     }
     `
+
+const ButtonAddCart = styled.button`
+background-color: #326E2F;
+border-radius: 10px;
+color: white;
+padding: 5px 10px;
+margin: 10px;
+font-size: 20px;
+cursor: pointer;
+border: 2px solid #326E2F;
+&:hover {
+    border-color: #E6E6E6;
+}
+`;
 
 export default ProductComponent

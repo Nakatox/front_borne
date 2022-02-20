@@ -27,7 +27,7 @@ const Products = (): JSX.Element => {
     return (
         <ProductContainer>
             {products.map((product: Product) => {
-                return <ProductComponent key={product.id} product={product}></ProductComponent>
+                return <ProductComponent key={product.id} index={undefined} product={product} alreadyExist={false}></ProductComponent>
             })}
         </ProductContainer>
     )
