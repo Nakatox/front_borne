@@ -1,4 +1,5 @@
 import { Ingredient } from "./Ingredient";
+import { ProductHasIngredients } from "./ProductHasIngredients";
 
 export interface Product {
     id: number;
@@ -7,5 +8,5 @@ export interface Product {
     isCustom: boolean;
     picture: string;
     companyId: number;
-    ingredients: Ingredient[];
+    productHasIngredients: ProductHasIngredients[];
 }

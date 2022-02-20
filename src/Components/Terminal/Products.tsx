@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { GetProducts } from '../../Services/ProductAPI'
 import ProductComponent from './ProductComponent'
 import { Product } from '../../Interface/Product'
+import styled from 'styled-components'
 
 
 const Products = (): JSX.Element => {
@@ -13,8 +14,8 @@ const Products = (): JSX.Element => {
 
     const getProducts = async () => {
         const response = await GetProducts();
-        if (response.data) {
-            setProducts(response.data)
+        if (response) {
+            setProducts(response)
         }
     }
 
@@ -24,12 +25,18 @@ const Products = (): JSX.Element => {
 
 
     return (
-        <div>
+        <ProductContainer>
             {products.map((product: Product) => {
                 return <ProductComponent key={product.id} product={product}></ProductComponent>
             })}
-        </div>
+        </ProductContainer>
     )
 }
+
+const ProductContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+
+    `
 
 export default Products
