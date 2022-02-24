@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { CartContext } from '../../Provider/CartProvider'
 import { Ingredient } from '../../Interface/Ingredient'
+import { NavLink } from 'react-router-dom'
 
 
 const Cart = () => {
@@ -34,12 +35,15 @@ const Cart = () => {
                     )
                 })}
             </ProductContainer>
+            <h1>For a total of {cart.totPrice}</h1>
+            <p ><NavLink to= "/terminal/order">Pay</NavLink></p>
         </CartContainer>
     )
 }
 
 const CartContainer = styled.div`
   display: flex;
+    flex-direction: column;
 ;
   `
   const ProductContainer = styled.div`

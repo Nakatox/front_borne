@@ -8,6 +8,7 @@ import { GetIngredients } from '../../Services/IngredientAPI'
 import Popup from 'reactjs-popup'
 import { useContext } from 'react'
 import { CartContext } from '../../Provider/CartProvider'
+import { IngredientContext } from '../../Provider/IngredientProvider'
 
 const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredient>, priceTemp: number, alreadyExist: Boolean, index:number}): JSX.Element => {
 
@@ -18,24 +19,23 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
     const index = props.index
 
     let {cart, setCart} = useContext(CartContext)
+    let {ingredientP, setIngredients} = useContext(IngredientContext)
 
-    let [ingredients, setIngredients] = useState(ingredientTemp)
+
+    let [ingredients, setIngredientsDisplay] = useState(ingredientTemp)
     const [allIngredients, setAllIngredients] = useState([])
     let [price, setPrice] = useState(priceTemp === 0 ? product.price: priceTemp)
 
     const insertIngredient = (): void => {
         if (ingredients.length === 0) {
             product.productHasIngredients.map((data: any) => {
-                setIngredients(ingredients = [...ingredients, data.ingredient])
+                setIngredientsDisplay(ingredients = [...ingredients, data.ingredient])
             })
         }
     }
 
     const getAllIngredients = async (): Promise<void> => {
-        const response = await GetIngredients()
-        if (response) {
-            setAllIngredients(response)
-        }
+        setAllIngredients(ingredientP.filter((data: Ingredient) => data.stock.quantity > 5))        
     }
 
 
