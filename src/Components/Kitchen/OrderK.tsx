@@ -14,7 +14,7 @@ const OrderK = () => {
     
     if (orders !== undefined) {
         return (
-            <div>
+            <div style={{display:"flex",flexWrap:"wrap"}}>
                 {orders.map((data:Order, index:number) => {                    
                     return <OrderDetail id= {index} order={data}></OrderDetail>
                 })}

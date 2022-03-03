@@ -5,6 +5,7 @@ import HomeA from './Pages/Admin/HomeA'
 import Home from './Pages/Home'
 import HomeK from './Pages/Kitchen/HomeK'
 import HomeT from './Pages/Terminal/HomeT'
+import OrderDone from './Pages/Terminal/OrderDone'
 import CartProvider from './Provider/CartProvider'
 import IngredientProvider from './Provider/IngredientProvider'
 import OrderProvider from './Provider/OrderProvider'
@@ -26,6 +27,7 @@ function App() : JSX.Element {
 
                     <Route path="/terminal" element={<HomeT />} />
                     <Route path="/terminal/order" element={<OrderT />} />
+                    <Route path="/terminal/order/done/:orderNumber" element={<OrderDone />} />
 
                     <Route path="/admin" element={<HomeA />} />
 

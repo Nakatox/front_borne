@@ -35,16 +35,17 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
     }
 
     const getAllIngredients = async (): Promise<void> => {
-        setAllIngredients(ingredientP.filter((data: Ingredient) => data.stock.quantity > 5))        
+        setAllIngredients(ingredientP.filter((data: Ingredient) => data.stock.quantity > 5)) 
+               
     }
 
 
     const updateIngredient = (action:Boolean, ingredient: Ingredient): void => {
         if (action) {
-            setIngredients(ingredients = ingredients.filter((data: Ingredient) => data.id !== ingredient.id))
+            setIngredientsDisplay(ingredients = ingredients.filter((data: Ingredient) => data.id !== ingredient.id))
             updatePrice(true, ingredient)
         } else {
-            setIngredients(ingredients = [...ingredients, ingredient])
+            setIngredientsDisplay(ingredients = [...ingredients, ingredient])
             updatePrice(false, ingredient)
         }
     }
@@ -62,6 +63,7 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
     }
 
     const addToCart = () => {
+        
         if (alreadyExist) {            
             setCart({
                 products : [...cart.products.filter((data: any, i: number) => i !== index), [product, ingredients, price]],
@@ -76,7 +78,7 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
     }
 
     useEffect(() => {
-        insertIngredient()
+        insertIngredient()        
         getAllIngredients()
     }, [])
     

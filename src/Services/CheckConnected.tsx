@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const GetToken = () => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token) {        
         return token;
     } else {
         return null;

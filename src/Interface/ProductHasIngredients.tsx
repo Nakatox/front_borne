@@ -1,6 +1,6 @@
 import { Ingredient } from "./Ingredient";
 
-export interface ProductHasIngredient {
+export interface ProductHasIngredients {
     id: number;
     ingredientId: number;
     productId: number;

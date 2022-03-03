@@ -8,12 +8,14 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { CartContext } from '../../Provider/CartProvider'
 import { Ingredient } from '../../Interface/Ingredient'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { CreateOrder } from '../../Services/OrderAPI'
 
 const OrderT = () => {
 
     let {cart, setCart} = useContext(CartContext)
+
+    const navigate = useNavigate()
 
     const PayOrder = async () => {
         for (let index = 0; index < cart.products.length; index++) {
@@ -27,7 +29,7 @@ const OrderT = () => {
 
         const response = await CreateOrder(cart.products, cart.totPrice)
 
-        console.log(response);
+        navigate("/terminal/order/done/" + response.orderNumber)
         
     }
     
