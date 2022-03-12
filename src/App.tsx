@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import OrderT from './Components/Terminal/OrderT'
 import HomeA from './Pages/Admin/HomeA'
+import IngredientsA from './Pages/Admin/IngredientsA'
+import OrdersA from './Pages/Admin/OrdersA'
+import ProductsA from './Pages/Admin/ProductsA'
+import TerminalsA from './Pages/Admin/TerminalsA'
 import Home from './Pages/Home'
 import HomeK from './Pages/Kitchen/HomeK'
 import HomeT from './Pages/Terminal/HomeT'
+import InvoiceT from './Pages/Terminal/InvoiceT'
 import OrderDone from './Pages/Terminal/OrderDone'
 import CartProvider from './Provider/CartProvider'
 import IngredientProvider from './Provider/IngredientProvider'
@@ -26,10 +30,14 @@ function App() : JSX.Element {
                     <Route path="/" element={<Home />} />
 
                     <Route path="/terminal" element={<HomeT />} />
-                    <Route path="/terminal/order" element={<OrderT />} />
+                    <Route path="/terminal/order" element={<InvoiceT />} />
                     <Route path="/terminal/order/done/:orderNumber" element={<OrderDone />} />
 
                     <Route path="/admin" element={<HomeA />} />
+                    <Route path="/admin/products" element={<ProductsA />} />
+                    <Route path="/admin/ingredients" element={<IngredientsA />} />
+                    <Route path="/admin/orders" element={<OrdersA />} />
+                    <Route path="/admin/terminals" element={<TerminalsA />} />
 
                     <Route path="/kitchen" element={<HomeK />} />
                 </Routes>

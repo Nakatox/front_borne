@@ -9,6 +9,7 @@ import { useContext } from 'react'
 import { CartContext } from '../../Provider/CartProvider'
 import { Ingredient } from '../../Interface/Ingredient'
 import { NavLink } from 'react-router-dom'
+import { ContainerFlexColumn, ContainerWrap } from '../../Style/Components/Container'
 
 
 const Cart = () => {
@@ -23,8 +24,8 @@ const Cart = () => {
     }
     
     return (
-        <CartContainer>
-            <ProductContainer>
+        <ContainerFlexColumn>
+            <ContainerWrap>
                 {cart.products.map((data:any, index:number) => {     
                     return(
                         <div>
@@ -34,23 +35,12 @@ const Cart = () => {
 
                     )
                 })}
-            </ProductContainer>
+            </ContainerWrap>
             <h1>For a total of {cart.totPrice}</h1>
             <p ><NavLink to= "/terminal/order">Pay</NavLink></p>
-        </CartContainer>
+        </ContainerFlexColumn>
     )
 }
-
-const CartContainer = styled.div`
-  display: flex;
-    flex-direction: column;
-;
-  `
-  const ProductContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-
-  `
 
 
 export default Cart

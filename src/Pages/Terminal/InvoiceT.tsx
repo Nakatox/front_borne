@@ -1,9 +1,4 @@
 import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { GetProducts } from '../../Services/ProductAPI'
-import ProductComponent from './ProductComponent'
-import { Product } from '../../Interface/Product'
 import styled from 'styled-components'
 import { useContext } from 'react'
 import { CartContext } from '../../Provider/CartProvider'
@@ -11,7 +6,7 @@ import { Ingredient } from '../../Interface/Ingredient'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { CreateOrder } from '../../Services/OrderAPI'
 
-const OrderT = (): JSX.Element => {
+const InvoiceT = (): JSX.Element => {
 
     let {cart, setCart} = useContext(CartContext)
 
@@ -93,4 +88,4 @@ const IngredientContainer = styled.div`
         padding: 0 5px;
     }
     `;
-export default OrderT
+export default InvoiceT

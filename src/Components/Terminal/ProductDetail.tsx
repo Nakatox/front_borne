@@ -9,6 +9,8 @@ import Popup from 'reactjs-popup'
 import { useContext } from 'react'
 import { CartContext } from '../../Provider/CartProvider'
 import { IngredientContext } from '../../Provider/IngredientProvider'
+import { ContainerFlexColumn, IngredientContent, IngredientInList } from '../../Style/Components/Container'
+import { ButtonAdd } from '../../Style/Components/Button'
 
 const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredient>, priceTemp: number, alreadyExist: Boolean, index:number}): JSX.Element => {
 
@@ -20,7 +22,6 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
 
     let {cart, setCart} = useContext(CartContext)
     let {ingredientP, setIngredients} = useContext(IngredientContext)
-
 
     let [ingredients, setIngredientsDisplay] = useState(ingredientTemp)
     const [allIngredients, setAllIngredients] = useState([])
@@ -35,8 +36,7 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
     }
 
     const getAllIngredients = async (): Promise<void> => {
-        setAllIngredients(ingredientP.filter((data: Ingredient) => data.stock.quantity > 5)) 
-               
+        setAllIngredients(ingredientP.filter((data: Ingredient) => data.stock.quantity > 5))   
     }
 
 
@@ -84,10 +84,10 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
     
 
     return (
-        <ProductContainer>
+        <ContainerFlexColumn>
             <h1>Custom your Pizza</h1>
             <p>{product.name}</p>
-            <IngredientContainer>
+            <ContainerFlexColumn>
                 {ingredients.map((ingredient: Ingredient ) => {
                     if (ingredient.isRemovable) {
                         return(
@@ -98,9 +98,9 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
                         )
                     }
                 })}
-            </IngredientContainer>
+            </ContainerFlexColumn>
             <div>
-                <Popup trigger={<ButtonAdd>Add ingredient</ButtonAdd>} position="right center" nested>
+                <Popup trigger={<ButtonAdd >Add ingredient</ButtonAdd>} position="right center" nested>
                     {allIngredients.map((ingredient: Ingredient) => {                        
                         if (ingredients.find((data: any) => data.id === ingredient.id) == undefined) {
                             return(
@@ -114,69 +114,11 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
             </div>
             <div style= {{display:"flex", alignItems:"center"}}>
                 <p>Price: {price} $</p>
-                <ButtonAddCart onClick={addToCart}>Add to cart</ButtonAddCart>
+                <ButtonAdd onClick={addToCart}>Add to cart</ButtonAdd>
             </div>
-        </ProductContainer>
+        </ContainerFlexColumn>
     )
 }
-
-const IngredientContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    `;
-const IngredientContent = styled.div`
-    display: flex;
-    flex-direction: row;
-    border: 2px solid #BCD379;
-    border-radius: 5px;
-    margin: 10px;
-    background-color: white;
-    box-shadow:
-        0px 0px 0.8px rgba(0, 0, 0, 0.036),
-        0px 0px 2.7px rgba(0, 0, 0, 0.054),
-        0px 0px 12px rgba(0, 0, 0, 0.09)
-    ;
-    `;
-
-const ProductContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    `;
-
-const ButtonAdd = styled.button`
-    background-color: #FEE69C;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    border: 2px solid #FEE69C;
-    &:hover {
-        border-color: #326E2F;
-    }
-    `;
-const ButtonAddCart = styled.button`
-    background-color: #326E2F;
-    border-radius: 10px;
-    color: white;
-    padding: 5px 10px;
-    margin: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    border: 2px solid #326E2F;
-    &:hover {
-        border-color: #E6E6E6;
-    }
-`;
     
-const IngredientInList = styled.div`
-    cursor: pointer;
-    &:hover {
-        background-color: #FEE69C;
-    }
-    `;
+
 export default ProductDetail

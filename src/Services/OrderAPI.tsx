@@ -29,8 +29,6 @@ export const GetOrders = async (): Promise<Array<Order>> => {
 }
 
 export const DoneOrder = async (orderId: number) => {
-    console.log(GetToken());
-    
     const response = await axios.put(`http://localhost:8000/orders/${orderId}/done` ,{
         headers: {
             Authorization: `Bearer ${GetToken()}`

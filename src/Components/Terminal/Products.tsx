@@ -5,6 +5,7 @@ import { GetProducts } from '../../Services/ProductAPI'
 import ProductComponent from './ProductComponent'
 import { Product } from '../../Interface/Product'
 import styled from 'styled-components'
+import { ContainerWrap } from '../../Style/Components/Container'
 
 
 const Products = (): JSX.Element => {
@@ -25,18 +26,13 @@ const Products = (): JSX.Element => {
 
 
     return (
-        <ProductContainer>
+        <ContainerWrap>
             {products.map((product: Product) => {
                 return <ProductComponent key={product.id} index={undefined} product={product} alreadyExist={false}></ProductComponent>
             })}
-        </ProductContainer>
+        </ContainerWrap>
     )
 }
 
-const ProductContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-
-    `
 
 export default Products
