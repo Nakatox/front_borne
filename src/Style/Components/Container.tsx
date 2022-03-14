@@ -65,6 +65,7 @@ export const IngredientContent = styled.div`
     flex-direction: row;
     border: 2px solid #BCD379;
     border-radius: 5px;
+    padding: 10px;
     margin: 10px;
     background-color: white;
     box-shadow:

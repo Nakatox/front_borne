@@ -55,7 +55,7 @@ const ProductComponent = (props: any): JSX.Element => {
             <ProductContainerDisabled>
                 <p>{product.name}</p>
                 <p>{totPrice} $</p>
-                {alreadyExist ? <ButtonAddDisabled>Modify</ButtonAddDisabled> : <ButtonAddDisabled >Add to cart</ButtonAddDisabled>}
+                {alreadyExist ? <ButtonAddDisabled>Modify</ButtonAddDisabled> : <ButtonAddDisabled >Out of stock</ButtonAddDisabled>}
             </ProductContainerDisabled>
         )
     }

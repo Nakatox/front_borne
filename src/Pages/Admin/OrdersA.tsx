@@ -1,24 +1,17 @@
 import React from 'react'
+import { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import Header from '../../Components/Admin/Header'
 import OrderA from '../../Components/Admin/OrderA'
 import { Order } from '../../Interface/Order'
+import { OrderContext } from '../../Provider/OrderProvider'
 import { GetOrders } from '../../Services/OrderAPI'
 
 const OrdersA = () => {
 
-    const [orders, setOrders] = useState([])
-
-    const getOrders = async () => {
-        const response = await GetOrders()
-        setOrders(response)
-    }
-
-    useEffect(() => {
-        getOrders()
-    }, [])
-
+    let {orders, setOrders} = useContext(OrderContext)
+    
     return (
         <div>
             <Header/>
@@ -30,8 +23,6 @@ const OrdersA = () => {
                     )
                 })}
             </div>
-            
-            
         </div>
     )
 }

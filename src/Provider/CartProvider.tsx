@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import { createContext } from 'react'
 
@@ -13,6 +14,11 @@ const CartProvider = (props: any): JSX.Element => {
     }
 
     const [cart, setCart] = useState(defaultCart)
+
+
+    useEffect(() => {
+
+    }, [cart])
 
     return (
         <CartContext.Provider value={{cart, setCart}}>

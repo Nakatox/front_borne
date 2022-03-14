@@ -5,10 +5,12 @@ import { CartContext } from '../../Provider/CartProvider'
 import { Ingredient } from '../../Interface/Ingredient'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { CreateOrder } from '../../Services/OrderAPI'
+import { useState } from 'react'
 
 const InvoiceT = (): JSX.Element => {
 
     let {cart, setCart} = useContext(CartContext)
+    const [email, setEmail] = useState('')
 
     const navigate = useNavigate()
 
@@ -16,15 +18,18 @@ const InvoiceT = (): JSX.Element => {
         for (let index = 0; index < cart.products.length; index++) {
             const element = cart.products[index];
             element["isCustom"] = (element[2] != element[0].price || element[1].length != element[0].productHasIngredients.length)
+            console.log(element);
+
             setCart({
                 products: [...cart.products.filter((data: any, i: number) => i !== index), element],
                 totPrice: cart.totPrice
             })
+            
         }
 
-        const response = await CreateOrder(cart.products, cart.totPrice)
-
-        navigate("/terminal/order/done/" + response.orderNumber)
+        const response = await CreateOrder(cart.products, cart.totPrice, email)
+        
+        // navigate("/terminal/order/done/" + response.orderNumber)
         
     }
     
@@ -50,6 +55,11 @@ const InvoiceT = (): JSX.Element => {
             })}
 
             <h2>For a total of {cart.totPrice}</h2>
+            <div>
+                <p>Write your email if you want to get the invoice</p>
+                <input type="text" onChange={(e)=>{setEmail(e.target.value);
+                }} />
+            </div>
             <button onClick={PayOrder}>Pay</button>
         </RecapContainer>
     )

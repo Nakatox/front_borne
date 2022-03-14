@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 const OrderDetail = (props: any): JSX.Element => {
     
     const  order  = props.order
+    const onChange = props.onChange
     let orderTimeCreated = new Date(order.createdAt)
     
     
@@ -29,6 +30,7 @@ const OrderDetail = (props: any): JSX.Element => {
 
     const actionDone = async () => {
         const response = await DoneOrder(order.id)
+        onChange(order)
     }
     
     return (
