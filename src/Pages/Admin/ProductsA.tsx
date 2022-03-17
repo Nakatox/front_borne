@@ -40,12 +40,14 @@ const ProductsA = ():JSX.Element => {
             <h1>Products</h1>
 
             <Popup trigger={<ButtonEdit>Add a product</ButtonEdit>} position="right center" modal nested>
-                <CreateProduct onCreate={onCreate}/>
+                {(close:any) => (
+                    <CreateProduct onCreate={onCreate} close={close}/>
+                )}
             </Popup>
             <ContainerFlexColumn>
-                {products.map((product: any) => {
+                {products.map((product: any, index:number) => {
                     return (
-                        <ProductA key={product.id} product={product} onDelete= {onDelete} />
+                        <ProductA key={index} product={product} onDelete= {onDelete} />
                     )
                 })}
             </ContainerFlexColumn>

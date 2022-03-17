@@ -63,9 +63,9 @@ const ProductA = (props: any):JSX.Element => {
             <p>{product.name}</p>
             <p>{product.price} €</p>
             <IngredientContainer>            
-                {product.productHasIngredients.map((productHasIngredients: ProductHasIngredients) => {
+                {product.productHasIngredients.map((productHasIngredients: ProductHasIngredients, index: number) => {
                     return (
-                        <p>{productHasIngredients.ingredient.name}</p>
+                        <p key={index}>{productHasIngredients.ingredient.name}</p>
                     )
                 })}
             </IngredientContainer>
@@ -80,28 +80,30 @@ const ProductA = (props: any):JSX.Element => {
                             <p>Price :</p>
                             <input type="number" defaultValue={product.price} {...register("price", {required:true})}/>
                             <ContainerFlexColumn>
-                                {productTemp.productHasIngredients.map((productHasIngredients: ProductHasIngredients ) => {
+                                {productTemp.productHasIngredients.map((productHasIngredients: ProductHasIngredients, index:number ) => {
                                     let actualIngredient = productHasIngredients.ingredient
                                     if (actualIngredient.isRemovable) {
                                         return(
-                                            <IngredientContent key={actualIngredient.id}>
+                                            <IngredientContent key={index}>
                                                 <p>{actualIngredient.name}</p>
-                                                <img src="/assets/icons/close.svg" alt="" onClick={() => {updateIngredient(true, actualIngredient)}} style={{cursor:"pointer", width:"30px"}}/>
+                                                <img src="/assets/icons/close.svg" alt="" onClick={() => {updateIngredient(true, actualIngredient);close()}} style={{cursor:"pointer", width:"30px"}}/>
                                             </IngredientContent>
                                         )
                                     }
                                 })}
                             </ContainerFlexColumn>
                             <Popup trigger={<ButtonAdd type="button">Add ingredient</ButtonAdd>} position="right center" nested>
-                                {ingredientP.map((ingredient: Ingredient) => {           
-                                    if (productTemp.productHasIngredients.find((data: any) => data.ingredient.id === ingredient.id) == undefined) {
-                                        return(
-                                            <IngredientInList key={ingredient.id} onClick={()=>{updateIngredient(false, ingredient)}} >
-                                                <p>{ingredient.name}</p>
-                                            </IngredientInList>
-                                        )
-                                    }
-                                })}
+                                {(close:any) => (
+                                    ingredientP.map((ingredient: Ingredient, index:number) => {           
+                                        if (productTemp.productHasIngredients.find((data: any) => data.ingredient.id === ingredient.id) == undefined) {
+                                            return(
+                                                <IngredientInList key={index} onClick={()=>{updateIngredient(false, ingredient); close()}} >
+                                                    <p>{ingredient.name}</p>
+                                                </IngredientInList>
+                                            )
+                                        }
+                                    })
+                                )}
                             </Popup>
                             <ButtonEdit type="submit">Edit</ButtonEdit>
 

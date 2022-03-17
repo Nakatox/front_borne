@@ -28,8 +28,8 @@ const Cart = () => {
             <ContainerWrap>
                 {cart.products.map((data:any, index:number) => {     
                     return(
-                        <div>
-                            <ProductComponent key={index} index={index} product={data[0]} ingredients={data[1]} totPrice={data[2]} alreadyExist={true}></ProductComponent>
+                        <div key={index} >
+                            <ProductComponent index={index} product={data[0]} ingredients={data[1]} totPrice={data[2]} alreadyExist={true}></ProductComponent>
                             <img src="/assets/icons/close.svg" alt="" onClick={() => {removeFromCart(index, data[2])}} style={{cursor:"pointer", width:"30px"}}/>
                         </div>
 

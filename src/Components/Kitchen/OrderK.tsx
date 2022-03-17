@@ -32,7 +32,7 @@ const OrderK = () => {
         return (
             <div style={{display:"flex",flexWrap:"wrap"}}>
                 {orderNotDone.map((data:Order, index:number) => {                    
-                    return <OrderDetail id= {index} order={data} onChange={onChange}></OrderDetail>
+                    return <OrderDetail key={index} id= {index} order={data} onChange={onChange}></OrderDetail>
                 })}
             </div>
         )

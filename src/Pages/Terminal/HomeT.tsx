@@ -1,7 +1,9 @@
 import React from 'react'
 import Popup from 'reactjs-popup'
+import CreateProduct from '../../Components/CreateProduct'
 import Cart from '../../Components/Terminal/Cart'
 import Products from '../../Components/Terminal/Products'
+import { ButtonAdd } from '../../Style/Components/Button'
 
 const HomeT = () : JSX.Element => {
     return (
@@ -15,6 +17,11 @@ const HomeT = () : JSX.Element => {
                     </div>  
                 )}
                 
+            </Popup>
+            <Popup trigger={<ButtonAdd>Create a cutom product</ButtonAdd>} position="right center" modal nested>
+                {(close:any) => (
+                    <CreateProduct close={close} onCreate={"oui"} />
+                )}
             </Popup>
         </div>
     )   

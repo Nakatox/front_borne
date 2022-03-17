@@ -29,7 +29,7 @@ const InvoiceT = (): JSX.Element => {
 
         const response = await CreateOrder(cart.products, cart.totPrice, email)
         
-        // navigate("/terminal/order/done/" + response.orderNumber)
+        navigate("/terminal/order/done/" + response.orderNumber)
         
     }
     
@@ -38,16 +38,14 @@ const InvoiceT = (): JSX.Element => {
         <RecapContainer>
             <p><NavLink to="/terminal">back</NavLink></p>
             <h1>Recap of your order</h1>
-            {cart.products.map((data:any) => {
+            {cart.products.map((data:any, index: number) => {
                 return (
-                    <ProductContainer>
+                    <ProductContainer key={index}>
                         <p>{data[0].name}</p>
                         <p>{data[2]} $</p>
                         <IngredientContainer>
-                            {data[1].map((ingredient:Ingredient) => {
-                                return (
-                                    <p>{ingredient.name} </p>
-                                )
+                            {data[1].map((ingredient:Ingredient, index:number) => {
+                                return <p key={index}>{ingredient.name} </p>
                             })}
                         </IngredientContainer>
                     </ProductContainer>

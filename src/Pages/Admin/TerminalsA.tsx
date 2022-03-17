@@ -69,11 +69,7 @@ const TerminalsA = () => {
         labels,
         datasets
     };``
-    // {
-    //     label: 'Dataset 1',
-    //     data: 600,
-    //     backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    //   },
+
 
     useEffect(() => {
         getOrderHasProduct()

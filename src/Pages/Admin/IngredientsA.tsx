@@ -6,10 +6,16 @@ import IngredientA from '../../Components/Admin/IngredientA'
 import { Ingredient } from '../../Interface/Ingredient'
 import { GetIngredients } from '../../Services/IngredientAPI'
 import styled from 'styled-components'
-import { ButtonEdit } from '../../Style/Components/Button'
-import { ContainerWrap } from '../../Style/Components/Container'
+import { ButtonAdd, ButtonEdit } from '../../Style/Components/Button'
+import { ContainerWrap, StyledPopup } from '../../Style/Components/Container'
+import AddIngredient from '../../Components/Admin/AddIngredient'
+import { useContext } from 'react'
+import { IngredientContext } from '../../Provider/IngredientProvider'
 
-const IngredientsA = () => {
+const IngredientsA = (): JSX.Element => {
+
+    
+    let {ingredientP} = useContext(IngredientContext)
 
     const [ingredients, setIngredients] = useState([])
 
@@ -20,7 +26,7 @@ const IngredientsA = () => {
 
     useEffect(() => {
         getIngredients()
-    }, [])
+    }, [ingredientP])
 
     const onDelete = (id: number) => {
         setIngredients(ingredients.filter((ingredient: Ingredient) => ingredient.id !== id))        
@@ -31,12 +37,18 @@ const IngredientsA = () => {
         <div>
         <Header />
         <div>
-            <ButtonEdit>Add ingredient</ButtonEdit>
+
+            <StyledPopup trigger={<ButtonAdd >Create a Ingredient</ButtonAdd>} position="right center" modal nested>
+                {(close:any) => (     
+                    <AddIngredient inrgedient={null} param={"add"} close={close}></AddIngredient>
+                )}
+                    
+                </StyledPopup>
         </div>
         <ContainerWrap>
-            {ingredients.map((ingredient: Ingredient) => {                
+            {ingredients.map((ingredient: Ingredient, index: number) => {                
                 return (
-                    <IngredientA key={ingredient.id} ingredient={ingredient} onDelete={onDelete} />
+                    <IngredientA key={index} ingredient={ingredient} onDelete={onDelete} />
                 )
             })}
         </ContainerWrap>

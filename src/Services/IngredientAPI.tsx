@@ -12,8 +12,13 @@ export const GetIngredients = async (): Promise<Array<Ingredient>> => {
     return response.data.data;
 }
 
-export const CreateIngredient = async (ingredient: Ingredient): Promise<Ingredient> => {
-    const response = await axios.post(`http://localhost:8000/ingredients`, ingredient, {
+export const CreateIngredient = async (name:String, price:number, stock:number, isRemovable: boolean): Promise<Ingredient> => {
+    const response = await axios.post(`http://localhost:8000/ingredients`, {
+        name,
+        price,
+        stock,
+        isRemovable
+    }, {
         headers: {
             Authorization: `Bearer ${GetToken()}`
         }
@@ -22,10 +27,11 @@ export const CreateIngredient = async (ingredient: Ingredient): Promise<Ingredie
     return response.data.data;
 }
 
-export const UpdateIngredient = async (name: String, price: Number, id: Number): Promise<Ingredient> => {
+export const UpdateIngredient = async (name: String, price: Number, id: Number, stock: Number): Promise<Ingredient> => {
     const response = await axios.put(`http://localhost:8000/ingredients/${id}`, {
         name: name,
         price: price,
+        stock: stock,
         isRemoved: true
     }, {
         headers: {

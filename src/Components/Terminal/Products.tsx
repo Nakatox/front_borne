@@ -6,11 +6,15 @@ import ProductComponent from './ProductComponent'
 import { Product } from '../../Interface/Product'
 import styled from 'styled-components'
 import { ContainerWrap } from '../../Style/Components/Container'
+import { useContext } from 'react'
+import { IngredientContext } from '../../Provider/IngredientProvider'
 
 
 const Products = (): JSX.Element => {
     
     const [products, setProducts] = useState([])
+    let {ingredientP, setIngredients} = useContext(IngredientContext)
+
 
 
     const getProducts = async () => {
@@ -27,8 +31,8 @@ const Products = (): JSX.Element => {
 
     return (
         <ContainerWrap>
-            {products.map((product: Product) => {
-                return <ProductComponent key={product.id} index={undefined} product={product} alreadyExist={false}></ProductComponent>
+            {products.map((product: Product, index:number) => {
+                return <ProductComponent key={index} index={undefined} product={product} alreadyExist={false}></ProductComponent>
             })}
         </ContainerWrap>
     )

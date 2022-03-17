@@ -17,9 +17,9 @@ const OrdersA = () => {
             <Header/>
 
             <div style={{display:"flex", flexWrap:"wrap"}}>
-                {orders.map((order: Order) => {
+                {orders.map((order: Order, index:number) => {
                     return (
-                        <OrderA key={order.id} order={order} />
+                        <OrderA key={index} order={order} />
                     )
                 })}
             </div>

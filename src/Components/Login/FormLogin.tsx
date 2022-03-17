@@ -35,7 +35,7 @@ const FormLogin = () => {
             
             switch (infosUser.roleId) {
                 case 1:
-                    navigate('/admin')
+                    navigate('/admin/ingredients')
                     break;
                 case 2:
                     navigate('/terminal')

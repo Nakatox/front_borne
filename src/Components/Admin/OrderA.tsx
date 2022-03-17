@@ -13,15 +13,15 @@ const OrderA = (props:any): JSX.Element => {
             <OrderContainer>
                 <p>Order N°{order.orderNumber}</p>
     
-                {Object.entries(order.orderHasProducts).map((value:any ) => {
+                {Object.entries(order.orderHasProducts).map((value:any, index:number ) => {
                     let product = value[1].product;
                     return (
-                        <ProductContainer>
+                        <ProductContainer key={index}>
                             <p>{product.name}</p>
                             <div>
-                                {product.productHasIngredients.map((ingredientRef: any) => {
+                                {product.productHasIngredients.map((ingredientRef: any, index:number) => {
                                     return (
-                                        <p>
+                                        <p key={index}>
                                             {ingredientRef.ingredient.name}
                                         </p>
                                     )

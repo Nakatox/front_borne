@@ -7,23 +7,13 @@ import { DeleteIngredient, UpdateIngredient } from '../../Services/IngredientAPI
 import { useState } from 'react'
 import { ButtonDelete, ButtonEdit } from '../../Style/Components/Button'
 import { StyledPopup } from '../../Style/Components/Container'
+import AddIngredient from './AddIngredient'
 
 
 const IngredientA = (props:any):JSX.Element => {
 
     const [ingredient, setIngredient] = useState(props.ingredient as Ingredient)
     let onDelete = props.onDelete
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
- 
-    const onSubmit = async (data: any) => {
-
-        const response = await UpdateIngredient(data.name, data.price, ingredient.id)
-        
-        if (response){
-            setIngredient(response)
-        }
-    }
 
     const deleteIngredient = async (ingredient: Ingredient) => {
         let response = await DeleteIngredient(ingredient.id)
@@ -35,21 +25,10 @@ const IngredientA = (props:any):JSX.Element => {
         <InrgedientContainer>
             <div>{ingredient.name}</div>
             <div>{ingredient.price} €</div>
+            <div>Stock :{ingredient.stock.quantity}</div>
             <StyledPopup trigger={<ButtonEdit>Edit</ButtonEdit>} position="right center" modal nested>
                 {(close:any) => (     
-                    <div>      
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <p>Name :</p>
-                            <input type="text" defaultValue={ingredient.name} {...register("name", {required:true})} />
-                            <p>Price :</p>
-                            <input type="number" defaultValue={ingredient.price} {...register("price", {required:true})}/>
-
-                            <ButtonEdit type="submit">Edit</ButtonEdit>
-
-                            {errors.email && <span>This field is required</span>}
-                            {errors.password && <span>This field is required</span>}
-                        </form>
-                    </div>    
+                    <AddIngredient ingredient={ingredient} param={"edit"} close={close} setIngredient={setIngredient}/>  
                 )}
             </StyledPopup>
             <ButtonDelete onClick={()=>{deleteIngredient(ingredient)}}>Delete</ButtonDelete>

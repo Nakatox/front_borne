@@ -12,13 +12,14 @@ import { IngredientContext } from '../../Provider/IngredientProvider'
 import { ContainerFlexColumn, IngredientContent, IngredientInList } from '../../Style/Components/Container'
 import { ButtonAdd } from '../../Style/Components/Button'
 
-const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredient>, priceTemp: number, alreadyExist: Boolean, index:number}): JSX.Element => {
+const ProductDetail = (props: {product: Product,close: Function, ingredientTemp: Array<Ingredient>, priceTemp: number, alreadyExist: Boolean, index:number}): JSX.Element => {
 
     const product = props.product
     const ingredientTemp = props.ingredientTemp
     const priceTemp = props.priceTemp
     const alreadyExist = props.alreadyExist
     const index = props.index
+    const close = props.close
 
     let {cart, setCart} = useContext(CartContext)
     let {ingredientP, setIngredients} = useContext(IngredientContext)
@@ -75,6 +76,8 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
                 totPrice: cart.totPrice + price
             })
         }
+
+        close()
     }
 
     useEffect(() => {
@@ -88,10 +91,10 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
             <h1>Custom your Pizza</h1>
             <p>{product.name}</p>
             <ContainerFlexColumn>
-                {ingredients.map((ingredient: Ingredient ) => {
+                {ingredients.map((ingredient: Ingredient, index: number ) => {
                     if (ingredient.isRemovable) {
                         return(
-                            <IngredientContent key={ingredient.id}>
+                            <IngredientContent key={index}>
                                 <p>{ingredient.name}</p>
                                 <img src="/assets/icons/close.svg" alt="" onClick={() => {updateIngredient(true, ingredient)}} style={{cursor:"pointer", width:"30px"}}/>
                             </IngredientContent>
@@ -101,10 +104,10 @@ const ProductDetail = (props: {product: Product, ingredientTemp: Array<Ingredien
             </ContainerFlexColumn>
             <div>
                 <Popup trigger={<ButtonAdd >Add ingredient</ButtonAdd>} position="right center" nested>
-                    {allIngredients.map((ingredient: Ingredient) => {                        
+                    {allIngredients.map((ingredient: Ingredient, index: number) => {                        
                         if (ingredients.find((data: any) => data.id === ingredient.id) == undefined) {
                             return(
-                                <IngredientInList key={ingredient.id} onClick={()=>{updateIngredient(false, ingredient)}} >
+                                <IngredientInList key={index} onClick={()=>{updateIngredient(false, ingredient)}} >
                                     <p>{ingredient.name}</p>
                                 </IngredientInList>
                             )
