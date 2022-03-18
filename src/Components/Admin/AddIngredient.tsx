@@ -11,7 +11,7 @@ const AddIngredient = (props:any) => {
 
     const ingredient = props.ingredient
     const param = props.param
-    const setIngredient = props.setIngredient
+    // const setIngredient = props.setIngredient
     const close = props.close
 
     let {ingredientP, setIngredients} = useContext(IngredientContext)
@@ -23,8 +23,8 @@ const AddIngredient = (props:any) => {
     const onSubmit = async (data: any) => {
 
         if (param == "edit"){
-            const response = await UpdateIngredient(data.name, data.price, ingredient.id, data.stock)
-            setIngredient(response)
+            const response = await UpdateIngredient(data.name, data.price, ingredient.id, data.stock, isRemovable)
+            // setIngredient(response)
         } else {
             const response = await CreateIngredient(data.name, data.price, data.stock, isRemovable)
             setIngredients([...ingredientP, response])
@@ -41,7 +41,7 @@ const AddIngredient = (props:any) => {
             <p>Stock :</p>
             <input type="number" defaultValue={param == "edit" ?ingredient.stock.quantity: ""} {...register("stock", {required:true})}/>
             <p>Removable :</p>
-            <input type="checkbox" onChange={()=>{setIsRemovable(!isRemovable)}}/>
+            {param == "edit" ? <input type="checkbox" defaultChecked={ingredient.isRemovable} onChange={() => setIsRemovable(!isRemovable)}/> : <input type="checkbox" onChange={() => setIsRemovable(!isRemovable)}/>}
 
             <ButtonEdit type="submit">{param == "edit" ? "Edit" : "Add"}</ButtonEdit>
 

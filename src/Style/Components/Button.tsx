@@ -23,6 +23,9 @@ export const ButtonAddDisabled = styled.button`
 
 export const ButtonAdd = styled.button`
     background-color: #326E2F;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     color: white;
     border-radius: 10px;
     padding: 5px 10px;
@@ -34,6 +37,20 @@ export const ButtonAdd = styled.button`
         border-color: #E6E6E6;
     }
     `
+export const ButtonAddIngredient = styled.button`
+    background-color: #FEE69C;
+    color: #171717;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border: 2px solid #E6E6E6;
+    &:hover {
+        border-color: #E6E6E6;
+    }
+`
+
 
 export const ButtonDelete = styled.button`
     background-color: #D32E05;

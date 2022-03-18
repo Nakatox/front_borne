@@ -34,7 +34,7 @@ const ProductComponent = (props: any): JSX.Element => {
         Object.entries(product.productHasIngredients).map((data: any) => {
             ingredientP.map((data2: any) => {
                 if (data[1].ingredient.id === data2.id) {
-                    if (data2.stock < 5) {
+                    if (data2.stock.quantity < 5 ) {
                         available = false
                     }
                 }
@@ -45,9 +45,10 @@ const ProductComponent = (props: any): JSX.Element => {
     if (checkAvailability() && ingredientP) {
         return (
             <ProductContainer>
+                <img src="/assets/images/pizza.png" alt="pizza image" />
                 <p>{product.name}</p>
-                <p>{totPrice} $</p>
-                <StyledPopup trigger={alreadyExist ? <ButtonAdd>Modify</ButtonAdd> : <ButtonAdd >Add to cart</ButtonAdd>} position="right center" modal nested>
+                <p>{totPrice} €</p>
+                <StyledPopup trigger={alreadyExist ? <ButtonAdd>Modify<img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/edit.svg' /></ButtonAdd> : <ButtonAdd >Add to cart<img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/plus.svg' /></ButtonAdd>} position="right center" modal nested>
                 {(close:any) => (     
                     <div key={alreadyExist ? product.id + "productCart" : product.id + "productSolo"}>      
                         <ProductDetail index={index} close={close} product= {product} ingredientTemp={ingredients} priceTemp= {totPrice} alreadyExist= {alreadyExist} ></ProductDetail>
@@ -62,7 +63,7 @@ const ProductComponent = (props: any): JSX.Element => {
         return (
             <ProductContainerDisabled>
                 <p>{product.name}</p>
-                <p>{totPrice} $</p>
+                <p>{totPrice} €</p>
                 {alreadyExist ? <ButtonAddDisabled>Modify</ButtonAddDisabled> : <ButtonAddDisabled >Out of stock</ButtonAddDisabled>}
             </ProductContainerDisabled>
         )

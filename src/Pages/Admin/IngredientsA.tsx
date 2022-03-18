@@ -29,29 +29,29 @@ const IngredientsA = (): JSX.Element => {
     }, [ingredientP])
 
     const onDelete = (id: number) => {
-        setIngredients(ingredients.filter((ingredient: Ingredient) => ingredient.id !== id))        
+        const newIngredients = ingredients.filter((ingredient: Ingredient) => ingredient.id !== id)
+        setIngredients(newIngredients)        
     }
-
 
     return (
         <div>
-        <Header />
-        <div>
+            <Header />
+            <div>
 
-            <StyledPopup trigger={<ButtonAdd >Create a Ingredient</ButtonAdd>} position="right center" modal nested>
-                {(close:any) => (     
-                    <AddIngredient inrgedient={null} param={"add"} close={close}></AddIngredient>
-                )}
-                    
-                </StyledPopup>
-        </div>
-        <ContainerWrap>
-            {ingredients.map((ingredient: Ingredient, index: number) => {                
-                return (
-                    <IngredientA key={index} ingredient={ingredient} onDelete={onDelete} />
-                )
-            })}
-        </ContainerWrap>
+                <StyledPopup trigger={<ButtonAdd >Create a Ingredient</ButtonAdd>} position="right center" modal nested>
+                    {(close:any) => (     
+                        <AddIngredient inrgedient={null} param={"add"} close={close}></AddIngredient>
+                    )}
+                        
+                    </StyledPopup>
+            </div>
+            <ContainerWrap>
+                {ingredients.map((ingredient: Ingredient, index: number) => {    
+                    return (
+                        <IngredientA key={index} ingredient={ingredient} onDelete={onDelete} />
+                    )
+                })}
+            </ContainerWrap>
             
         </div>
     )

@@ -6,6 +6,7 @@ import { GetIngredients } from '../Services/IngredientAPI'
 import {io } from 'socket.io-client'
 import { useContext } from 'react'
 import { CartContext } from './CartProvider'
+import { Ingredient } from '../Interface/Ingredient'
 
 
 export const IngredientContext = createContext()
@@ -26,20 +27,23 @@ const IngredientProvider = (props: any): JSX.Element => {
     }
 
     useEffect(()=>{
-        getIngredients()
+        if (!isLoaded) {
+            getIngredients()
+        }
     }, [])
 
     useEffect(() => {
         const socket = io("http://localhost:8000");
-        socket.off('stockUpdate').on("stockUpdate", (data) => {
-            if (data.quantity < 5){
-                setIngredients(ingredientP.map((ingredient: any) => {
-                    if (ingredient.id === data.ingredient){
-                        ingredient.stock = data.quantity
-                    }
+        socket.off('stockUpdate').on("stockUpdate", (data) => {    
+            setIngredients(ingredientP.map((ingredient: Ingredient) => {
+                if (ingredient.id === data.ingredient.id) {
+                    ingredient.stock.quantity = data.quantity
                     return ingredient
-                }))
-                setCart(cart.products.filter((product: any) => product.ingredient[0].id !== data.ingredient))
+                }
+                return ingredient
+            }))
+            if (data.quantity< 5){
+                setCart(cart.products.filter((product: any) => product.ingredient[0].id !== data.ingredient.id))
             }
         });
     }, [isLoaded])

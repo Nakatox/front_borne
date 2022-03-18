@@ -4,12 +4,13 @@ import CreateProduct from '../../Components/CreateProduct'
 import Cart from '../../Components/Terminal/Cart'
 import Products from '../../Components/Terminal/Products'
 import { ButtonAdd } from '../../Style/Components/Button'
+import { StyledPopup } from '../../Style/Components/Container'
 
 const HomeT = () : JSX.Element => {
     return (
         <div>
-        <Products></Products>
-            <Popup trigger={<button>See Cart</button>} modal nested>
+            <Products></Products>
+            <StyledPopup trigger={<ButtonAdd>See Cart<img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/cart.svg' /></ButtonAdd>} modal nested>
                 {(close:any) => (
                     <div>      
                         <Cart></Cart>
@@ -17,12 +18,12 @@ const HomeT = () : JSX.Element => {
                     </div>  
                 )}
                 
-            </Popup>
-            <Popup trigger={<ButtonAdd>Create a cutom product</ButtonAdd>} position="right center" modal nested>
+            </StyledPopup>
+            <StyledPopup trigger={<ButtonAdd>Create a cutom product <img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/plusplus.svg' />  </ButtonAdd>} position="right center" modal nested>
                 {(close:any) => (
                     <CreateProduct close={close} onCreate={"oui"} />
                 )}
-            </Popup>
+            </StyledPopup>
         </div>
     )   
 }

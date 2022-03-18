@@ -56,7 +56,7 @@ const OrderDetail = (props: any): JSX.Element => {
                         </ProductContainer>
                     )
                 })} 
-                <ButtonFinished onClick={()=>{actionDone()}}>Finished</ButtonFinished>
+                <ButtonFinished onClick={()=>{actionDone()}}>Finished<img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/plusplus.svg' /></ButtonFinished>
                 <p style={{alignSelf:"center"}}>{timeElapsedStringState}</p>
                 
             </OrderContainer>

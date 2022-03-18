@@ -27,12 +27,12 @@ export const CreateIngredient = async (name:String, price:number, stock:number, 
     return response.data.data;
 }
 
-export const UpdateIngredient = async (name: String, price: Number, id: Number, stock: Number): Promise<Ingredient> => {
+export const UpdateIngredient = async (name: String, price: Number, id: Number, stock: Number, isRemovable: boolean): Promise<Ingredient> => {
     const response = await axios.put(`http://localhost:8000/ingredients/${id}`, {
         name: name,
         price: price,
         stock: stock,
-        isRemoved: true
+        isRemovable
     }, {
         headers: {
             Authorization: `Bearer ${GetToken()}`

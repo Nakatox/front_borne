@@ -8,13 +8,16 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { CartContext } from '../../Provider/CartProvider'
 import { Ingredient } from '../../Interface/Ingredient'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { ContainerFlexColumn, ContainerWrap } from '../../Style/Components/Container'
+import { ButtonAdd } from '../../Style/Components/Button'
 
 
 const Cart = () => {
 
     let {cart, setCart} = useContext(CartContext)
+
+    const navigate = useNavigate()
 
     const removeFromCart = (index:number, price:number) => {
         setCart({
@@ -26,18 +29,20 @@ const Cart = () => {
     return (
         <ContainerFlexColumn>
             <ContainerWrap>
-                {cart.products.map((data:any, index:number) => {     
-                    return(
-                        <div key={index} >
-                            <ProductComponent index={index} product={data[0]} ingredients={data[1]} totPrice={data[2]} alreadyExist={true}></ProductComponent>
-                            <img src="/assets/icons/close.svg" alt="" onClick={() => {removeFromCart(index, data[2])}} style={{cursor:"pointer", width:"30px"}}/>
-                        </div>
+                {cart.hasOwnProperty('products') && 
+                    cart.products.map((data:any, index:number) => {     
+                        return(
+                            <div key={index} >
+                                <ProductComponent index={index} product={data[0]} ingredients={data[1]} totPrice={data[2]} alreadyExist={true}></ProductComponent>
+                                <img src="/assets/icons/close.svg" alt="" onClick={() => {removeFromCart(index, data[2])}} style={{cursor:"pointer", width:"30px"}}/>
+                            </div>
 
-                    )
-                })}
+                        )
+                    })
+                }
             </ContainerWrap>
-            <h1>For a total of {cart.totPrice}</h1>
-            <p ><NavLink to= "/terminal/order">Pay</NavLink></p>
+            <h1>For a total of {cart.totPrice} €</h1>
+            <ButtonAdd onClick={()=>{navigate('/terminal/order')}}>Pay<img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/pay.svg' /></ButtonAdd>
         </ContainerFlexColumn>
     )
 }

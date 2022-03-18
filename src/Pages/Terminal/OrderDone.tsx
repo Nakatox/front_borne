@@ -6,7 +6,9 @@ const OrderDone = (): JSX.Element => {
     const {orderNumber} = useParams()
 
     return (
-        <div>Command n° {orderNumber}</div>
+        <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh"}}>
+            <h1>Order n°{orderNumber}</h1>
+        </div>
     )
 }
 

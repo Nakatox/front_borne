@@ -17,6 +17,7 @@ import UserProvider from './Provider/UserProvider'
 
 
 
+
 function App() : JSX.Element {
 
     return (
@@ -30,8 +31,6 @@ function App() : JSX.Element {
                     <Route path="/" element={<Home />} />
 
                     <Route element={<PrivateRoute />} >
-
-
 
                         <Route path="/terminal" element={<HomeT />} />
                         <Route path="/terminal/order" element={<InvoiceT />} />
@@ -47,7 +46,6 @@ function App() : JSX.Element {
                         <Route path="*" element={<Home />} />
 
                     </Route>
-
 
                 </Routes>
             </BrowserRouter>

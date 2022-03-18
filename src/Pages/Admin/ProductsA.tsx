@@ -10,6 +10,7 @@ import Popup from 'reactjs-popup'
 import { ButtonEdit } from '../../Style/Components/Button'
 import { ContainerFlexColumn } from '../../Style/Components/Container'
 import { Product } from '../../Interface/Product'
+import { BallTriangle } from 'react-loader-spinner'
 
 
 const ProductsA = ():JSX.Element => {
@@ -45,11 +46,16 @@ const ProductsA = ():JSX.Element => {
                 )}
             </Popup>
             <ContainerFlexColumn>
-                {products.map((product: any, index:number) => {
-                    return (
-                        <ProductA key={index} product={product} onDelete= {onDelete} />
-                    )
-                })}
+                {products.length > 0 &&
+                    products.map((product: any, index:number) => {
+                        return (
+                            <ProductA key={index} product={product} onDelete= {onDelete} />
+                        )
+                    })
+                }
+                {products.length === 0 &&
+                    <BallTriangle color="#00BFFF" height={80} width={80} />
+                }
             </ContainerFlexColumn>
             
             </div>

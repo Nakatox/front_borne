@@ -1,10 +1,29 @@
 import React from 'react'
+import { useEffect } from 'react';
 import {NavLink} from 'react-router-dom'
 import {useNavigate } from "react-router-dom";
 import styled from 'styled-components'
+import { io } from 'socket.io-client'
+import { toast } from 'react-toastify';
+
 
 
 const Header = (): JSX.Element => {
+
+    useEffect(() => {
+        const socket = io("http://localhost:8000"); 
+        socket.off('lowStock').on("lowStock", (data) => {
+            toast.error(`Inrgedient "${data.inrgedient.name}" is out of stock`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        });
+    }, [])
 
     return (
         <HeaderS>

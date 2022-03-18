@@ -21,6 +21,7 @@ const ProductA = (props: any):JSX.Element => {
 
     
     let [product, setProduct] = useState(props.product as Product)
+    let productDisplay = props.product
     let [productTemp, setProductTemp] = useState(props.product as Product)
     let onDelete = props.onDelete
 
@@ -30,16 +31,16 @@ const ProductA = (props: any):JSX.Element => {
         productTemp.name = data.name
         productTemp.price = data.price
         
-        setProduct(product = productTemp)
-        setProductTemp(productTemp = product)
+        setProduct(productDisplay = productTemp)
+        setProductTemp(productTemp = productDisplay)
 
         let productHasIngredients: Array<Ingredient> = []
-        product.productHasIngredients.map((data: any) => {
+        productDisplay.productHasIngredients.map((data: any) => {
 
             productHasIngredients.push(data.ingredient)
         })
         
-        let response = await UpdateProducts(product, productHasIngredients)
+        let response = await UpdateProducts(productDisplay, productHasIngredients)
 
     }
 
@@ -60,10 +61,10 @@ const ProductA = (props: any):JSX.Element => {
 
     return (
         <ProductContainer>
-            <p>{product.name}</p>
-            <p>{product.price} €</p>
+            <p>{productDisplay.name}</p>
+            <p>{productDisplay.price} €</p>
             <IngredientContainer>            
-                {product.productHasIngredients.map((productHasIngredients: ProductHasIngredients, index: number) => {
+                {productDisplay.productHasIngredients.map((productHasIngredients: ProductHasIngredients, index: number) => {
                     return (
                         <p key={index}>{productHasIngredients.ingredient.name}</p>
                     )
@@ -76,9 +77,9 @@ const ProductA = (props: any):JSX.Element => {
                     <div>      
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <p>Name :</p>
-                            <input type="text" defaultValue={product.name} {...register("name", {required:true})} />
+                            <input type="text" defaultValue={productDisplay.name} {...register("name", {required:true})} />
                             <p>Price :</p>
-                            <input type="number" defaultValue={product.price} {...register("price", {required:true})}/>
+                            <input type="number" defaultValue={productDisplay.price} {...register("price", {required:true})}/>
                             <ContainerFlexColumn>
                                 {productTemp.productHasIngredients.map((productHasIngredients: ProductHasIngredients, index:number ) => {
                                     let actualIngredient = productHasIngredients.ingredient
@@ -86,34 +87,32 @@ const ProductA = (props: any):JSX.Element => {
                                         return(
                                             <IngredientContent key={index}>
                                                 <p>{actualIngredient.name}</p>
-                                                <img src="/assets/icons/close.svg" alt="" onClick={() => {updateIngredient(true, actualIngredient);close()}} style={{cursor:"pointer", width:"30px"}}/>
+                                                <img src="/assets/icons/close.svg" alt="" onClick={() => {updateIngredient(true, actualIngredient)}} style={{cursor:"pointer", width:"30px"}}/>
                                             </IngredientContent>
                                         )
                                     }
                                 })}
                             </ContainerFlexColumn>
                             <Popup trigger={<ButtonAdd type="button">Add ingredient</ButtonAdd>} position="right center" nested>
-                                {(close:any) => (
-                                    ingredientP.map((ingredient: Ingredient, index:number) => {           
-                                        if (productTemp.productHasIngredients.find((data: any) => data.ingredient.id === ingredient.id) == undefined) {
-                                            return(
-                                                <IngredientInList key={index} onClick={()=>{updateIngredient(false, ingredient); close()}} >
-                                                    <p>{ingredient.name}</p>
-                                                </IngredientInList>
-                                            )
-                                        }
-                                    })
-                                )}
+                                {ingredientP.map((ingredient: Ingredient, index:number) => {           
+                                    if (productTemp.productHasIngredients.find((data: any) => data.ingredient.id === ingredient.id) == undefined) {
+                                        return(
+                                            <IngredientInList key={index} onClick={()=>{updateIngredient(false, ingredient)}} >
+                                                <p>{ingredient.name}</p>
+                                            </IngredientInList>
+                                        )
+                                    }
+                                })}
                             </Popup>
-                            <ButtonEdit type="submit">Edit</ButtonEdit>
+                            <ButtonEdit type="submit">Edit<img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/edit.svg' /></ButtonEdit>
 
-                            {errors.email && <span>This field is required</span>}
-                            {errors.password && <span>This field is required</span>}
+                            {errors.name && <span>This field is required</span>}
+                            {errors.price && <span>This field is required</span>}
                         </form>
                     </div>    
                 )}
             </StyledPopup>
-                <ButtonDelete onClick={()=>(deleteProduct(product))}>Delete</ButtonDelete>
+                <ButtonDelete onClick={()=>(deleteProduct(productDisplay))}>Delete</ButtonDelete>
             </div>
         </ProductContainer>
     )

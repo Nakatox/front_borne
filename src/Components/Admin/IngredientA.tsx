@@ -12,7 +12,7 @@ import AddIngredient from './AddIngredient'
 
 const IngredientA = (props:any):JSX.Element => {
 
-    const [ingredient, setIngredient] = useState(props.ingredient as Ingredient)
+    const inrgedientDisplay = props.ingredient as Ingredient
     let onDelete = props.onDelete
 
     const deleteIngredient = async (ingredient: Ingredient) => {
@@ -20,18 +20,18 @@ const IngredientA = (props:any):JSX.Element => {
         onDelete(ingredient.id)
     }
 
-
+    
     return (
         <InrgedientContainer>
-            <div>{ingredient.name}</div>
-            <div>{ingredient.price} €</div>
-            <div>Stock :{ingredient.stock.quantity}</div>
-            <StyledPopup trigger={<ButtonEdit>Edit</ButtonEdit>} position="right center" modal nested>
+            <div>{inrgedientDisplay.name}</div>
+            <div>{inrgedientDisplay.price} €</div>
+            <div>Stock :{inrgedientDisplay.stock.quantity}</div>
+            <StyledPopup trigger={<ButtonEdit >Edit<img style={{width:"25px",marginLeft:"10px",filter: "invert(87%) sepia(13%) saturate(1061%) hue-rotate(351deg) brightness(104%) contrast(101%)"}} src='/assets/icons/edit.svg' /></ButtonEdit>} position="right center" modal nested>
                 {(close:any) => (     
-                    <AddIngredient ingredient={ingredient} param={"edit"} close={close} setIngredient={setIngredient}/>  
+                    <AddIngredient ingredient={inrgedientDisplay} param={"edit"} close={close}/>  
                 )}
             </StyledPopup>
-            <ButtonDelete onClick={()=>{deleteIngredient(ingredient)}}>Delete</ButtonDelete>
+            <ButtonDelete onClick={()=>{deleteIngredient(inrgedientDisplay)}}>Delete</ButtonDelete>
         </InrgedientContainer>
         
     )

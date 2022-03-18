@@ -71,10 +71,12 @@ const ProductDetail = (props: {product: Product,close: Function, ingredientTemp:
                 totPrice : (cart.totPrice - product.price) + price
             })
         } else {
-            setCart({
-                products: [...cart.products, [product, ingredients, price]], 
-                totPrice: cart.totPrice + price
-            })
+            if (cart.hasOwnProperty('products')) {
+                setCart({
+                    products: [...cart.products, [product, ingredients, price]], 
+                    totPrice: cart.totPrice + price
+                })
+            }
         }
 
         close()
@@ -116,7 +118,7 @@ const ProductDetail = (props: {product: Product,close: Function, ingredientTemp:
                 </Popup>
             </div>
             <div style= {{display:"flex", alignItems:"center"}}>
-                <p>Price: {price} $</p>
+                <p>Price: {price} €</p>
                 <ButtonAdd onClick={addToCart}>Add to cart</ButtonAdd>
             </div>
         </ContainerFlexColumn>
